@@ -16,7 +16,7 @@ bool Node::isEven()
 
 
 DLL::DLL()
-    : m_Head(nullptr)
+    : m_Head(nullptr), m_Tail(nullptr), m_Size(0)
 {}
 
 
@@ -25,20 +25,19 @@ void DLL::Append(int value)
     if (m_Head == nullptr)
     {
         m_Head = m_Tail = new Node(value);
-
-        if (isCircular())
-        {
-            m_Head->next = m_Head;
-            m_Head->prev = m_Head;
-        }
-
+        m_Size++;
         return;
     }
+
+    bool wasCrclr = isCircular();
 
     m_Tail->next = new Node(value, m_Tail);
     m_Tail = m_Tail->next;
 
-    MakeCircle();
+    m_Size++;
+
+    if (wasCrclr)
+        MakeCircle();
 }
 
 
@@ -94,6 +93,53 @@ void DLL::BreakCircle()
 bool DLL::isCircular()
 {
     return (m_Head->prev != nullptr);
+}
+
+
+bool DLL::isPalindrome()
+{
+    if (m_Head == nullptr)
+    {
+        std::cout << "list is Empty!" << std::endl;
+        return false;
+    }
+
+    Node* left = m_Head;
+    Node* right = m_Tail;
+
+    int dist = 0;
+    int mid = m_Size / 2;
+
+    while (left->data == right->data && dist <= mid)
+    {
+        left = left->next;
+        right = right->prev;
+        dist++;
+    }
+    
+    return (dist >= mid);
+}
+
+
+Node* DLL::Search(int value)
+{
+    if (m_Head == nullptr)
+    {
+        std::cout << "list is Empty!" << std::endl;
+        return nullptr;
+    }
+
+    Node* tN = m_Head;
+    do
+    {
+        if (tN->data == value)
+        {
+            return tN;
+        }
+        tN = tN->next;
+    } while (tN != m_Tail->next);
+    
+    return nullptr;
 }
 
 

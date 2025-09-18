@@ -1,33 +1,42 @@
-#pragma once
-
 #include "Task2.hpp"
 
 
 Task2::Task2()
 {
     std::cout << "Enter length of list 1: ";
-    std::cin >> l1Len;
-    GetValues(list1, l1Len);
+    std::cin >> m_L1Len;
+    GetValues(m_List1, m_L1Len);
 
     std::cout << "Enter length of list 2: ";
-    std::cin >> l2Len;
-    GetValues(list2, l2Len);
+    std::cin >> m_L2Len;
+    GetValues(m_List2, m_L2Len);
 }
 
 
 void Task2::Execute()
 {
-    Node* tN = list1.GetHead();
-    for (int i = 0; i < l1Len; i++)
+    Node* tN = m_List1.GetHead();
+    for (int i = 0; i < m_L1Len; i++)
     {
-        listUnion.Append(tN->data);
+        m_ListUnion.Append(tN->data);
         tN = tN->next;
     }
     
-    tN = list2.GetHead();
+    tN = m_List2.GetHead();
+    for (int i = 0; i < m_L2Len; i++)
+    {
+        if (m_List1.Search(tN->data))
+        {
+            tN = tN->next;
+            continue;
+        }
+        
+        m_ListUnion.Append(tN->data);
+        tN = tN->next;
+    }
     
     
-    listUnion.Print();
+    m_ListUnion.Print();
 }
 
 

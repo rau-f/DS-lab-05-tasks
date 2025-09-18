@@ -6,10 +6,10 @@
 class Task2
 {
 private:
-    DLL list1, list2;
-    DLL listUnion;
+    DLL m_List1, m_List2;
+    DLL m_ListUnion;
 
-    int l1Len, l2Len;
+    int m_L1Len, m_L2Len;
 
 public:
     Task2();

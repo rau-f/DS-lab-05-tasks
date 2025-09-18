@@ -17,18 +17,22 @@ class DLL
 private:
     Node* m_Head;
     Node* m_Tail;
+    int m_Size;
 
 public:
     DLL();
 
-    void CountEvenOdd(int& eCount, int& oCount);
     void Append(int value);
-
+    void CountEvenOdd(int& eCount, int& oCount);
     void MakeCircle();
     void BreakCircle();
-    bool isCircular();
     void Print();
 
+    Node* Search(int value);
+    
+    bool isCircular();
+    bool isPalindrome();
+    
     Node* GetHead() { return m_Head; }
     Node* GetTail() { return m_Tail; }
 };
